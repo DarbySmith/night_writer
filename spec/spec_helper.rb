@@ -2,4 +2,4 @@ require 'simplecov'
 SimpleCov.start
 
 require 'rspec'
-require 'night_writer'
+require './lib/night_writer'

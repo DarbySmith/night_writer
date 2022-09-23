@@ -28,4 +28,10 @@ RSpec.describe NightWriter do
       expect(@night_writer.creation_message).to eq("Created 'braille_spec.txt' containing 11 characters")
     end
   end
+
+  describe '#write_file_contents' do
+    it 'copies the file message to the braille file' do
+      expect(@night_writer.write_file_contents).to eq('hello world')
+    end
+  end
 end

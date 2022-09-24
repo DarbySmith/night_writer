@@ -28,12 +28,24 @@ class Braille
       w: [".0","00",".0"],
       x: ["00","..","00"],
       y: ["00",".0","00"],
-      z: ["0.",".0","00"]
+      z: ["0.",".0","00"],
+      space: ["..","..",".."]
     }
     @alphabet = alphabet
   end
 
-  def braille_formatter(letter)
-    alphabet[letter.to_sym].join("\n")
+  def braille_formatter(unformatted_braille)
+    # alphabet[letter.to_sym].join("\n")
+    braille_rows = {
+      first_row: [],
+      second_row: [],
+      thrid_row: []
+    }
+    unformatted_braille.each do |letter|
+      braille_rows[:first_row] << letter[0]
+      braille_rows[:second_row] << letter[1]
+      braille_rows[:thrid_row] << letter[2]
+    end
+    braille_rows[:first_row].join+"\n"+braille_rows[:second_row].join+"\n"+braille_rows[:thrid_row].join+"\n"
   end
 end

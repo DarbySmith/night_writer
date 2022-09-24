@@ -42,4 +42,11 @@ RSpec.describe Braille do
       expect(@braille.alphabet).to eq(alphabet)
     end
   end
+
+  describe '#braille_formatter' do
+    it 'converts the unformatted text to a readable braille format' do
+      a = "0.\n..\n.."
+      expect(@braille.braille_formatter("a")).to eq(a)
+    end
+  end
 end

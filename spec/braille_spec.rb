@@ -37,7 +37,8 @@ RSpec.describe Braille do
         w: [".0","00",".0"],
         x: ["00","..","00"],
         y: ["00",".0","00"],
-        z: ["0.",".0","00"]
+        z: ["0.",".0","00"],
+        space: ["..","..",".."]
       }
       expect(@braille.alphabet).to eq(alphabet)
     end
@@ -45,8 +46,22 @@ RSpec.describe Braille do
 
   describe '#braille_formatter' do
     it 'converts the unformatted text to a readable braille format' do
-      a = "0.\n..\n.."
-      expect(@braille.braille_formatter("a")).to eq(a)
+      # a = "0.\n..\n.."
+      # expect(@braille.braille_formatter("a")).to eq(a)
+      hello_world_unformatted = [
+      ["0.", "00", ".."],
+      ["0.", ".0", ".."],
+      ["0.", "0.", "0."],
+      ["0.", "0.", "0."],
+      ["0.", ".0", "0."],
+      ["..", "..", ".."],
+      [".0", "00", ".0"],
+      ["0.", ".0", "0."],
+      ["0.", "00", "0."],
+      ["0.", "0.", "0."],
+      ["00", ".0", ".."]]
+      hello_world_formatted = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
+      expect(@braille.braille_formatter(hello_world_unformatted)).to eq(hello_world_formatted)
     end
   end
 end

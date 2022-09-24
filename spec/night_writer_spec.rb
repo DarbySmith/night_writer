@@ -7,6 +7,7 @@ RSpec.describe NightWriter do
       braille_file_path: 'braille_spec.txt'
     }
     @night_writer = NightWriter.new(information)
+    @braille = Braille.new
   end
   
   describe '#initialize' do
@@ -32,6 +33,21 @@ RSpec.describe NightWriter do
   describe '#write_file_contents' do
     it 'copies the file message to the braille file' do
       expect(@night_writer.write_file_contents).to eq('hello world')
+    end
+  end
+
+  describe '#convert_to_braille' do
+    it 'converts english to braille' do
+      hello_world = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
+      expect(@night_writer.convert_to_braille).to eq(hello_world)
+    end
+  end
+
+  describe '#print_braille_to_file' do
+    it 'prints the message in braille' do
+      hello_world = 
+      "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
+      expect(@night_writer.print_braille_to_file(@night_writer.convert_to_braille)).to eq(hello_world)
     end
   end
 end

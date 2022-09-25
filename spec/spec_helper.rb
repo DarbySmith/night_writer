@@ -3,3 +3,4 @@ SimpleCov.start
 
 require 'rspec'
 require './lib/night_writer'
+require './lib/braille'

@@ -28,4 +28,24 @@ RSpec.describe NightReader do
       expect(@night_reader.creation_message).to eq("Created 'message_spec.txt' containing 69 characters")
     end
   end
+
+  describe '#write_file_contents' do
+    it 'copies the file message to the braille file' do
+      hello_world = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
+      expect(@night_reader.write_file_contents).to eq(hello_world)
+    end
+  end
+
+  describe '#convert_to_english' do
+    it 'converts braille into english' do
+      braille = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
+      expect(@night_reader.convert_to_english).to eq('hello world')
+    end
+  end
+
+  describe '#print_englsih_to_file' do
+    it 'prints the braille in english' do
+      expect(@night_reader.print_english_to_file(@night_reader.convert_to_english)).to eq('hello world')
+    end
+  end
 end

@@ -35,17 +35,29 @@ class Braille
   end
 
   def braille_formatter(unformatted_braille)
-    # alphabet[letter.to_sym].join("\n")
     braille_rows = {
       first_row: [],
       second_row: [],
-      thrid_row: []
+      third_row: []
     }
     unformatted_braille.each do |letter|
-      braille_rows[:first_row] << letter[0]
-      braille_rows[:second_row] << letter[1]
-      braille_rows[:thrid_row] << letter[2]
+        braille_rows[:first_row] << letter[0]
+        braille_rows[:second_row] << letter[1]
+        braille_rows[:third_row] << letter[2]
     end
-    braille_rows[:first_row].join+"\n"+braille_rows[:second_row].join+"\n"+braille_rows[:thrid_row].join+"\n"
+    braille_rows.each do |row, character|
+      braille_rows[row] = character.each_slice(40).to_a
+    end
+    array = []
+    braille_rows.each do |row, characters|
+      number_new_lines = characters.size
+      counter = 0
+      array = []
+      while counter < number_new_lines 
+        array << braille_rows[:first_row][counter].join+"\n"+braille_rows[:second_row][counter].join+"\n"+braille_rows[:third_row][counter].join+"\n"
+        counter += 1
+      end
+    end
+    array.join
   end
 end

@@ -1,4 +1,4 @@
-class Braille
+class Translator
   attr_reader :alphabet
 
   def initialize

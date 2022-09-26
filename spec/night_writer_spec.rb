@@ -7,7 +7,6 @@ RSpec.describe NightWriter do
       braille_file_path: 'braille_spec.txt'
     }
     @night_writer = NightWriter.new(information)
-    @braille = Braille.new
   end
   
   describe '#initialize' do

@@ -1,5 +1,3 @@
-require './lib/braille'
-
 class NightWriter
   attr_reader :message_file_path, :braille_file_path
 
@@ -20,7 +18,7 @@ class NightWriter
   end
   
   def convert_to_braille
-    @braille_alphabet = Braille.new
+    @braille_alphabet = Translator.new
     unformatted_braille =  []
     write_file_contents.chars.each do |letter|
       if letter == " "

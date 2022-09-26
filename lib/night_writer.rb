@@ -21,11 +21,7 @@ class NightWriter
     @braille_alphabet = Translator.new
     unformatted_braille =  []
     write_file_contents.chars.each do |letter|
-      if letter == " "
-        unformatted_braille << @braille_alphabet.alphabet[:space]
-      else
-        unformatted_braille << @braille_alphabet.alphabet[letter.to_sym]
-      end
+      unformatted_braille << @braille_alphabet.alphabet[letter]
     end
     @braille_alphabet.braille_formatter(unformatted_braille)
   end

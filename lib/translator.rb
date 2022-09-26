@@ -1,5 +1,5 @@
 class Translator
-  attr_reader :alphabet
+  attr_reader :english_to_braille_alphabet, :braille_to_english_alphabet
 
   def initialize
     alphabet = {
@@ -31,7 +31,8 @@ class Translator
       "z" => ["0.",".0","00"],
       " " => ["..","..",".."]
     }
-    @alphabet = alphabet
+    @english_to_braille_alphabet = alphabet
+    @braille_to_english_alphabet = alphabet.invert
   end
 
   def braille_formatter(unformatted_braille)

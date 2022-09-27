@@ -7,7 +7,7 @@
 ## Directions:
 1. Open this repository on your local machine
 1. To convert a message in *English* to *Braille*: 
-    * open `message.txt` and type your message
+    * open `message.txt` and type your message (lowercase only and no punctuation)
     * in your root directory in terminal run `ruby night_writer_runner.rb message.txt braille.txt`
     * your message should be translated in the `braille.txt` file
 1. To convert a message in *Braille* to *English*

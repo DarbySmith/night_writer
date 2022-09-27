@@ -19,8 +19,18 @@ class NightReader
 
   def convert_to_english
     translator = Translator.new
-    braille_in_lines = File.readlines(@message_file_path)
-    into_column = braille_in_lines.map do |line|
+    multi_line_braille = Hash.new {|h,k| h[k] = []}
+    braille_in_lines = File.readlines(@message_file_path).each_slice(3).to_a
+    braille_in_lines.each do |row_group|
+      multi_line_braille[1] << row_group[0].delete("\n")
+      multi_line_braille[2] << row_group[1].delete("\n")
+      multi_line_braille[3] << row_group[2].delete("\n")
+    end
+    one_line_braille = [multi_line_braille[1].join, multi_line_braille[2].join, multi_line_braille[3].join]
+
+
+    # braille_in_lines = File.readlines(@message_file_path)
+    into_column = one_line_braille.map do |line|
       line.scan(/.{2}/)
     end
     braille_letters = into_column[0].zip(into_column[1],into_column[2])
@@ -28,6 +38,21 @@ class NightReader
       translator.braille_to_english_alphabet[letter]
     end
     english_letter.join
+    # translator = Translator.new
+    # braille_in_lines = File.readlines(@message_file_path)
+    # into_column = braille_in_lines.map do |line|
+    #   line.scan(/.{2}/)
+    # end
+    # braille_letters = into_column[0].zip(into_column[1],into_column[2])
+    # english_letter = braille_letters.map do |letter|
+    #   translator.braille_to_english_alphabet[letter]
+    # end
+    # english_letter.join
+  end
+
+  def combine_multiple_lines
+    require 'pry'; binding.pry
+    x = write_file_contents
   end
 
   def print_english_to_file(english)

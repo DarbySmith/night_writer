@@ -7,7 +7,7 @@ RSpec.describe Translator do
   
   describe '#initialize' do
     it 'exists' do
-      expect(@translator).to be_instance_of(Braille)
+      expect(@translator).to be_instance_of(Translator)
     end
 
     it 'has an alphabet' do
@@ -77,10 +77,8 @@ RSpec.describe Translator do
     end
   end
 
-  describe '@translator_formatter' do
+  describe '#braille_formatter' do
     it 'converts the unformatted text to a readable@translator format' do
-      # a = "0.\n..\n.."
-      # expect(@translator_formatter("a")).to eq(a)
       hello_world_unformatted = [
       ["0.", "00", ".."],
       ["0.", ".0", ".."],
@@ -94,7 +92,7 @@ RSpec.describe Translator do
       ["0.", "0.", "0."],
       ["00", ".0", ".."]]
       hello_world_formatted = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
-      expect(@translator_formatter(hello_world_unformatted)).to eq(hello_world_formatted)
+      expect(@translator.braille_formatter(hello_world_unformatted)).to eq(hello_world_formatted)
     end
 
     it 'creates a new line after 40 characters' do
@@ -173,7 +171,30 @@ RSpec.describe Translator do
       ]
       message_formatted = "0..0..0000..000.000....0.0..000.0.0.00..0.0000...0..0..00.0....000..0.0..0000..0\n000......0...0.....0..0.0....0..000..0.....0.0..0...0.0.0..0..0..0..00.00...0000\n......0.00..0...0.......0.......0...00....0.........0...00......0.....0.0.....0.\n0.00..000....00..0000....0.0...000...00.0....00.0..00.0.0..0.0\n.0.0..00....00000...00..0.0...0..0..0000.0..0..0..0000.0..0.00\n0.0..........0............0.....0...0.......0.0.000.......0.0.\n"
 
-      expect(@translator_formatter(message_unformatted)).to eq(message_formatted)
+      expect(@translator.braille_formatter(message_unformatted)).to eq(message_formatted)
+    end
+  end
+
+  describe '#braille_rows' do
+    it 'creates a hash with each row as a key' do
+      hello_world_unformatted = [
+        ["0.", "00", ".."],
+        ["0.", ".0", ".."],
+        ["0.", "0.", "0."],
+        ["0.", "0.", "0."],
+        ["0.", ".0", "0."],
+        ["..", "..", ".."],
+        [".0", "00", ".0"],
+        ["0.", ".0", "0."],
+        ["0.", "00", "0."],
+        ["0.", "0.", "0."],
+        ["00", ".0", ".."]]
+      braille_rows = {
+        :first_row=>[["0.", "0.", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", "00"]],
+        :second_row=>[["00", ".0", "0.", "0.", ".0", "..", "00", ".0", "00", "0.", ".0"]],
+        :third_row=>[["..", "..", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", ".."]]
+      }
+      expect(@translator.braille_rows(hello_world_unformatted)).to eq(braille_rows)
     end
   end
 end

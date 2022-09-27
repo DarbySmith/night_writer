@@ -36,6 +36,22 @@ class Translator
   end
 
   def braille_formatter(unformatted_braille)
+    blocked_braille = []
+    braille_in_rows = braille_rows(unformatted_braille)
+    braille_in_rows.each do |row, characters|
+      number_new_lines = characters.size
+      counter = 0
+      blocked_braille = []
+      while counter < number_new_lines 
+        block = braille_in_rows[:first_row][counter].join+"\n"+braille_in_rows[:second_row][counter].join+"\n"+braille_in_rows[:third_row][counter].join+"\n"
+        blocked_braille << block
+        counter += 1
+      end
+    end
+    blocked_braille.join
+  end
+
+  def braille_rows(unformatted_braille)
     braille_rows = {
       first_row: [],
       second_row: [],
@@ -49,16 +65,6 @@ class Translator
     braille_rows.each do |row, character|
       braille_rows[row] = character.each_slice(40).to_a
     end
-    array = []
-    braille_rows.each do |row, characters|
-      number_new_lines = characters.size
-      counter = 0
-      array = []
-      while counter < number_new_lines 
-        array << braille_rows[:first_row][counter].join+"\n"+braille_rows[:second_row][counter].join+"\n"+braille_rows[:third_row][counter].join+"\n"
-        counter += 1
-      end
-    end
-    array.join
+    braille_rows
   end
 end

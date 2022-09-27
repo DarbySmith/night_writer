@@ -1,26 +1,11 @@
-class NightWriter
-  attr_reader :message_file_path, :braille_file_path
+require './lib/night_language'
 
-  def initialize(information)
-    @message_file_path = information[:message_file_path]
-    @braille_file_path = information[:braille_file_path]
-  end
-  
-  def creation_message
-    character_count = File.read(@message_file_path).chars.size
-    "Created '#{@braille_file_path}' containing #{character_count} characters"
-  end
-  
-  def write_file_contents
-    message_content = File.read(@message_file_path)
-    File.open(@braille_file_path, "w") { |file| file.write(message_content) }
-    File.read(@braille_file_path)
-  end
+class NightWriter < NightLanguage
   
   def convert_to_braille
     @braille_alphabet = Translator.new
     unformatted_braille =  []
-    write_file_contents.chars.each do |letter|
+    write_file_contents(@message_file_path, @braille_file_path).chars.each do |letter|
       unformatted_braille << @braille_alphabet.english_to_braille_alphabet[letter]
     end
     @braille_alphabet.braille_formatter(unformatted_braille)

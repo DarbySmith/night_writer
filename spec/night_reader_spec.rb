@@ -25,14 +25,14 @@ RSpec.describe NightReader do
 
   describe '#creation_message' do
     it 'prints a message with the second file argument and number of characters' do
-      expect(@night_reader.creation_message).to eq("Created 'message_spec.txt' containing 69 characters")
+      expect(@night_reader.creation_message(@night_reader.braille_file_path, @night_reader.message_file_path)).to eq("Created 'message_spec.txt' containing 69 characters")
     end
   end
 
   describe '#write_file_contents' do
     it 'copies the file message to the braille file' do
       hello_world = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
-      expect(@night_reader.write_file_contents).to eq(hello_world)
+      expect(@night_reader.write_file_contents(@night_reader.braille_file_path, @night_reader.message_file_path)).to eq(hello_world)
     end
   end
 
@@ -43,14 +43,14 @@ RSpec.describe NightReader do
     end
   end
   
-  # describe '#combine_multiple_lines' do
-  #   it 'combines multiple lines of braille into one' do
-  #     message = "0..0..0000..000.000....0.0..000.0.0.00..0.0000...0..0..00.0....000..0.0..0000..00.00..000....00..0000....0.0...000...00.0....00.0..00.0.0..0.0\n000......0...0.....0..0.0....0..000..0.....0.0..0...0.0.0..0..0..0..00.00...0000.0.0..00....00000...00..0.0...0..0..0000.0..0..0..0000.0..0.00\n......0.00..0...0.......0.......0...00....0.........0...00......0.....0.0.....0.0.0..........0............0.....0...0.......0.0.000.......0.0.\n"
-  #     # reader = double('reader')
-  #     allow(@night_reader).to receive(:combine_multiple_lines).and_return(message)
-  #     expect(@night_reader.combine_multiple_lines).to eq(message)
-  #   end
-  # end
+  describe '#combine_multiple_lines' do
+    it 'combines multiple lines of braille into one' do
+      message = "0..0..0000..000.000....0.0..000.0.0.00..0.0000...0..0..00.0....000..0.0..0000..00.00..000....00..0000....0.0...000...00.0....00.0..00.0.0..0.0\n000......0...0.....0..0.0....0..000..0.....0.0..0...0.0.0..0..0..0..00.00...0000.0.0..00....00000...00..0.0...0..0..0000.0..0..0..0000.0..0.00\n......0.00..0...0.......0.......0...00....0.........0...00......0.....0.0.....0.0.0..........0............0.....0...0.......0.0.000.......0.0.\n"
+      # reader = double('reader')
+      allow(@night_reader).to receive(:combine_multiple_lines).and_return(message)
+      expect(@night_reader.combine_multiple_lines).to eq(message)
+    end
+  end
 
   describe '#print_englsih_to_file' do
     it 'prints the braille in english' do

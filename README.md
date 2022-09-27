@@ -1,8 +1,8 @@
-### Night Writer
+# Night Writer
 
-# Night writer was developed during the Napoleonic Wars by a soldier as a way to communicate without light. The system was later redesigned for use as what we know now as Braille.
+### Night writer was developed during the Napoleonic Wars by a soldier as a way to communicate without light. The system was later redesigned for use as what we know now as Braille.
 
-# In Braille there are raised letters, bumps, and flat spaces that form a grid. Lowercase letters have a grid of two columns with three rows. In this program, raised dots are represented by zeros '0' and flat spaces are represented by periods '.'.
+### In Braille there are raised letters, bumps, and flat spaces that form a grid. Lowercase letters have a grid of two columns with three rows. In this program, raised dots are represented by zeros '0' and flat spaces are represented by periods '.'.
 
 ## Directions:
 1. Open this repository on your local machine

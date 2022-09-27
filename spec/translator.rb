@@ -1,53 +1,86 @@
 require 'spec_helper'
 
-RSpec.describe Braille do
+RSpec.describe Translator do
   before (:each) do
-    @braille = Braille.new
+    @translator = Translator.new
   end
   
   describe '#initialize' do
     it 'exists' do
-      expect(@braille).to be_instance_of(Braille)
+      expect(@translator).to be_instance_of(Braille)
     end
 
     it 'has an alphabet' do
-      alphabet = {
-        a: ["0.","..",".."],
-        b: ["0.","0.",".."],
-        c: ["00","..",".."],
-        d: ["00",".0",".."],
-        e: ["0.",".0",".."],
-        f: ["00","0.",".."],
-        g: ["00","00",".."],
-        h: ["0.","00",".."],
-        i: [".0","0.",".."],
-        j: [".0","00",".."],
-        k: ["0.","..","0."],
-        l: ["0.","0.","0."],
-        m: ["00","..","0."],
-        n: ["00",".0","0."],
-        o: ["0.",".0","0."],
-        p: ["00","0.","0."],
-        q: ["00","00","0."],
-        r: ["0.","00","0."],
-        s: [".0","0.","0."],
-        t: [".0","00","0."],
-        u: ["0.","..","00"],
-        v: ["0.","0.","00"],
-        w: [".0","00",".0"],
-        x: ["00","..","00"],
-        y: ["00",".0","00"],
-        z: ["0.",".0","00"],
-        space: ["..","..",".."]
+      english_alphabet = {
+        "a" => ["0.","..",".."],
+        "b" => ["0.","0.",".."],
+        "c" => ["00","..",".."],
+        "d" => ["00",".0",".."],
+        "e" => ["0.",".0",".."],
+        "f" => ["00","0.",".."],
+        "g" => ["00","00",".."],
+        "h" => ["0.","00",".."],
+        "i" => [".0","0.",".."],
+        "j" => [".0","00",".."],
+        "k" => ["0.","..","0."],
+        "l" => ["0.","0.","0."],
+        "m" => ["00","..","0."],
+        "n" => ["00",".0","0."],
+        "o" => ["0.",".0","0."],
+        "p" => ["00","0.","0."],
+        "q" => ["00","00","0."],
+        "r" => ["0.","00","0."],
+        "s" => [".0","0.","0."],
+        "t" => [".0","00","0."],
+        "u" => ["0.","..","00"],
+        "v" => ["0.","0.","00"],
+        "w" => [".0","00",".0"],
+        "x" => ["00","..","00"],
+        "y" => ["00",".0","00"],
+        "z" => ["0.",".0","00"],
+        " " => ["..","..",".."]
       }
-      expect(@braille.alphabet).to eq(alphabet)
+      expect(@translator.english_to_braille_alphabet).to eq(english_alphabet)
+    end
+
+    it 'has a braille alphabet' do
+      braille_alphabet = {
+        ["0.", "..", ".."]=>"a",
+        ["0.", "0.", ".."]=>"b",
+        ["00", "..", ".."]=>"c",
+        ["00", ".0", ".."]=>"d",
+        ["0.", ".0", ".."]=>"e",
+        ["00", "0.", ".."]=>"f",
+        ["00", "00", ".."]=>"g",
+        ["0.", "00", ".."]=>"h",
+        [".0", "0.", ".."]=>"i",
+        [".0", "00", ".."]=>"j",
+        ["0.", "..", "0."]=>"k",
+        ["0.", "0.", "0."]=>"l",
+        ["00", "..", "0."]=>"m",
+        ["00", ".0", "0."]=>"n",
+        ["0.", ".0", "0."]=>"o",
+        ["00", "0.", "0."]=>"p",
+        ["00", "00", "0."]=>"q",
+        ["0.", "00", "0."]=>"r",
+        [".0", "0.", "0."]=>"s",
+        [".0", "00", "0."]=>"t",
+        ["0.", "..", "00"]=>"u",
+        ["0.", "0.", "00"]=>"v",
+        [".0", "00", ".0"]=>"w",
+        ["00", "..", "00"]=>"x",
+        ["00", ".0", "00"]=>"y",
+        ["0.", ".0", "00"]=>"z",
+        ["..", "..", ".."]=>" "
+      }
+      expect(@translator.braille_to_english_alphabet).to eq(braille_alphabet)
     end
   end
 
-  describe '#braille_formatter' do
-    it 'converts the unformatted text to a readable braille format' do
+  describe '@translator_formatter' do
+    it 'converts the unformatted text to a readable@translator format' do
       # a = "0.\n..\n.."
-      # expect(@braille.braille_formatter("a")).to eq(a)
+      # expect(@translator_formatter("a")).to eq(a)
       hello_world_unformatted = [
       ["0.", "00", ".."],
       ["0.", ".0", ".."],
@@ -61,7 +94,7 @@ RSpec.describe Braille do
       ["0.", "0.", "0."],
       ["00", ".0", ".."]]
       hello_world_formatted = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0...\n"
-      expect(@braille.braille_formatter(hello_world_unformatted)).to eq(hello_world_formatted)
+      expect(@translator_formatter(hello_world_unformatted)).to eq(hello_world_formatted)
     end
 
     it 'creates a new line after 40 characters' do
@@ -140,7 +173,7 @@ RSpec.describe Braille do
       ]
       message_formatted = "0..0..0000..000.000....0.0..000.0.0.00..0.0000...0..0..00.0....000..0.0..0000..0\n000......0...0.....0..0.0....0..000..0.....0.0..0...0.0.0..0..0..0..00.00...0000\n......0.00..0...0.......0.......0...00....0.........0...00......0.....0.0.....0.\n0.00..000....00..0000....0.0...000...00.0....00.0..00.0.0..0.0\n.0.0..00....00000...00..0.0...0..0..0000.0..0..0..0000.0..0.00\n0.0..........0............0.....0...0.......0.0.000.......0.0.\n"
 
-      expect(@braille.braille_formatter(message_unformatted)).to eq(message_formatted)
+      expect(@translator_formatter(message_unformatted)).to eq(message_formatted)
     end
   end
 end

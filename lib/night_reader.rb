@@ -34,13 +34,16 @@ class NightReader < NightLanguage
 
   def combine_multiple_lines
     multi_line_braille = Hash.new {|h,k| h[k] = []}
-    braille_in_lines = File.readlines(@message_file_path).each_slice(3).to_a
     braille_in_lines.each do |row_group|
       multi_line_braille[1] << row_group[0].delete("\n")
       multi_line_braille[2] << row_group[1].delete("\n")
       multi_line_braille[3] << row_group[2].delete("\n")
     end
     one_line_braille = [multi_line_braille[1].join, multi_line_braille[2].join, multi_line_braille[3].join]
+  end
+
+  def braille_in_lines
+    File.readlines(@message_file_path).each_slice(3).to_a
   end
 
   def print_english_to_file(english)

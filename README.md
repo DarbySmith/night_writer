@@ -5,7 +5,7 @@
 ### In Braille there are raised letters, bumps, and flat spaces that form a grid. Lowercase letters have a grid of two columns with three rows. In this program, raised dots are represented by zeros '0' and flat spaces are represented by periods '.'
 
 ## Directions:
-1. Open this repository on your local machine
+1. Fork and/or open this repository on your local machine: `git clone git@github.com:DarbySmith/night_writer.git`
 1. To convert a message in *English* to *Braille*: 
     * open `message.txt` and type your message (lowercase only and no punctuation)
     * in your root directory in terminal run `ruby night_writer_runner.rb message.txt braille.txt`
